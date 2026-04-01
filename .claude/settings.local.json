@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(cd:*)",
+      "Bash(npm install:*)",
+      "Bash(npm create:*)",
+      "Bash(node -e \":*)",
+      "Bash(npm run:*)",
+      "Bash(curl:*)",
+      "Bash(node -e \"require\\(''./controllers/studentController''\\)\")",
+      "Bash(npx kill-port:*)",
+      "Bash(node:*)"
+    ]
+  }
+}
