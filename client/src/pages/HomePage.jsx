@@ -98,7 +98,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       {/* Hero Section */}
-      <div className="relative overflow-hidden min-h-[70vh]">
+      <div className="relative overflow-hidden min-h-[85vh]">
         {/* Animated Gradient Background */}
         <motion.div
           style={{ y: heroY, opacity: heroOpacity }}
@@ -124,7 +124,7 @@ const HomePage = () => {
         {/* Mesh gradient overlay */}
         <div className="absolute inset-0 opacity-30 bg-gradient-to-tr from-white/20 via-transparent to-white/10" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-56">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -196,7 +196,7 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 60, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.7, duration: 0.8, type: 'spring' }}
-            className="grid grid-cols-3 max-w-2xl mx-auto gap-6 sm:gap-12"
+            className="grid grid-cols-3 max-w-2xl mx-auto gap-6 sm:gap-12 relative z-20"
           >
             <AnimatedCounter
               value={students.length}

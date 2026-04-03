@@ -14,12 +14,22 @@ const studentSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  crmId: {
+    type: String,
+    trim: true,
+    default: '',
+  },
   mobileNumber: {
     type: String,
     trim: true,
     default: '',
   },
   email: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  currentFaculty: {
     type: String,
     trim: true,
     default: '',

@@ -37,7 +37,7 @@ const Navbar = () => {
                 transition={{ duration: 0.5 }}
                 className="relative"
               >
-                <div className="w-12 h-12">
+                <div className="w-56 h-56">
                   <img
                     src="/src/assets/Kanan New Logo.png"
                     alt="Company Logo"
@@ -45,12 +45,6 @@ const Navbar = () => {
                   />
                 </div>
               </motion.div>
-              <div className="flex flex-col">
-                <span className="text-2xl font-black tracking-tight">
-                  Company Name
-                </span>
-                <p className="text-[10px] text-gray-500 font-bold tracking-[0.2em] uppercase -mt-0.5">Success Stories</p>
-              </div>
             </Link>
 
             {/* Desktop Admin Link */}

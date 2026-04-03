@@ -13,11 +13,14 @@ const StudentTable = ({ students, onEdit, onDelete }) => {
         <table className="w-full">
           <thead>
             <tr className="bg-gradient-to-r from-gray-50 via-gray-50/80 to-gray-50 border-b-2 border-gray-100">
+              <th className="text-left px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Sr. No</th>
               <th className="text-left px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Student</th>
+              <th className="text-left px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">CRM ID</th>
               <th className="text-left px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Country</th>
               <th className="text-left px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Mobile</th>
               <th className="text-left px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Exam</th>
               <th className="text-left px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Result</th>
+              <th className="text-left px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Faculty</th>
               <th className="text-right px-6 py-4 text-xs font-black text-gray-400 uppercase tracking-wider">Actions</th>
             </tr>
           </thead>
@@ -31,6 +34,9 @@ const StudentTable = ({ students, onEdit, onDelete }) => {
                 whileHover={{ backgroundColor: 'rgba(40, 70, 149, 0.03)' }}
                 className="transition-colors"
               >
+                <td className="px-6 py-4">
+                  <span className="text-sm font-bold text-gray-500">{index + 1}</span>
+                </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-50 flex-shrink-0 ring-2 ring-gray-100">
@@ -49,6 +55,9 @@ const StudentTable = ({ students, onEdit, onDelete }) => {
                       )}
                     </div>
                   </div>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="text-sm text-gray-600 font-medium">{student.crmId || '—'}</span>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
@@ -81,6 +90,9 @@ const StudentTable = ({ students, onEdit, onDelete }) => {
                   ) : (
                     <span className="text-xs text-gray-400 font-medium">—</span>
                   )}
+                </td>
+                <td className="px-6 py-4">
+                  <span className="text-sm text-gray-600 font-medium">{student.currentFaculty || '—'}</span>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex justify-end gap-2">

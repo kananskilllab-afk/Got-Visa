@@ -1,17 +1,9 @@
 const Student = require('../models/Student');
-const cloudinary = require('../config/cloudinary');
 
-const uploadToCloudinary = (buffer) => {
-  return new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      { folder: 'got-visa/students' },
-      (error, result) => {
-        if (error) reject(error);
-        else resolve(result);
-      }
-    );
-    stream.end(buffer);
-  });
+const toBase64 = (file) => {
+  const mime = file.mimetype;
+  const b64 = file.buffer.toString('base64');
+  return `data:${mime};base64,${b64}`;
 };
 
 exports.getStudents = async (req, res, next) => {
@@ -56,9 +48,7 @@ exports.createStudent = async (req, res, next) => {
     const data = { ...req.body };
 
     if (req.file) {
-      const result = await uploadToCloudinary(req.file.buffer);
-      data.photo = result.secure_url;
-      data.photoPublicId = result.public_id;
+      data.photo = toBase64(req.file);
     }
 
     const student = await Student.create(data);
@@ -77,12 +67,7 @@ exports.updateStudent = async (req, res, next) => {
     }
 
     if (req.file) {
-      if (student.photoPublicId) {
-        await cloudinary.uploader.destroy(student.photoPublicId);
-      }
-      const result = await uploadToCloudinary(req.file.buffer);
-      req.body.photo = result.secure_url;
-      req.body.photoPublicId = result.public_id;
+      req.body.photo = toBase64(req.file);
     }
 
     const updated = await Student.findByIdAndUpdate(req.params.id, req.body, {
@@ -102,10 +87,6 @@ exports.deleteStudent = async (req, res, next) => {
     if (!student) {
       res.status(404);
       throw new Error('Student not found');
-    }
-
-    if (student.photoPublicId) {
-      await cloudinary.uploader.destroy(student.photoPublicId);
     }
 
     await Student.findByIdAndDelete(req.params.id);

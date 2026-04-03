@@ -25,13 +25,15 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 via-sky/10 to-secondary/10">
-            <motion.span
+            <motion.div
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="text-7xl font-black text-primary/20"
+              className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-sky flex items-center justify-center shadow-xl"
             >
-              {student.name.charAt(0)}
-            </motion.span>
+              <span className="text-4xl font-black text-white">
+                {student.name.charAt(0).toUpperCase()}
+              </span>
+            </motion.div>
           </div>
         )}
 

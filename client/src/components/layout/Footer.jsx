@@ -22,7 +22,7 @@ const Footer = () => {
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
-              className="w-10 h-10"
+              className="w-56 h-56"
             >
               <img
                 src="/src/assets/Kanan New Logo.png"
@@ -31,7 +31,7 @@ const Footer = () => {
               />
             </motion.div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-white">Company Name</span>
+              <span className="text-lg font-bold text-white">Kanan.co</span>
               <span className="text-xs text-white/60 font-medium">Empowering Dreams</span>
             </div>
           </motion.div>
@@ -61,7 +61,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="text-white/60 text-sm font-medium"
           >
-            &copy; {new Date().getFullYear()} Company Name. All rights reserved.
+            &copy; {new Date().getFullYear()} Kanan.co. All rights reserved.
           </motion.p>
         </div>
 

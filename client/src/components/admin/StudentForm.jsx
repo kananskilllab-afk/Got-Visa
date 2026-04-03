@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import api from '../../api/axios';
-import { HiOutlineUser, HiOutlineGlobe, HiOutlinePhone, HiOutlineMail, HiOutlineAcademicCap, HiOutlineClipboardCheck } from 'react-icons/hi';
+import { HiOutlineUser, HiOutlineGlobe, HiOutlinePhone, HiOutlineMail, HiOutlineAcademicCap, HiOutlineClipboardCheck, HiOutlineIdentification, HiOutlineUserGroup } from 'react-icons/hi';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 import Button from '../ui/Button';
@@ -16,11 +16,13 @@ const StudentForm = ({ initialData = null }) => {
 
   const [form, setForm] = useState({
     name: '',
+    crmId: '',
     mobileNumber: '',
     email: '',
     country: '',
     examType: '',
     result: '',
+    currentFaculty: '',
   });
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState('');
@@ -31,11 +33,13 @@ const StudentForm = ({ initialData = null }) => {
     if (initialData) {
       setForm({
         name: initialData.name || '',
+        crmId: initialData.crmId || '',
         mobileNumber: initialData.mobileNumber || '',
         email: initialData.email || '',
         country: initialData.country || '',
         examType: initialData.examType || '',
         result: initialData.result || '',
+        currentFaculty: initialData.currentFaculty || '',
       });
       if (initialData.photo) setPreview(initialData.photo);
     }
@@ -157,6 +161,15 @@ const StudentForm = ({ initialData = null }) => {
                   icon={HiOutlineUser}
                 />
               </motion.div>
+              <motion.div variants={fieldVariants} initial="hidden" animate="visible" transition={{ delay: 0.13 }}>
+                <Input
+                  label="CRM ID"
+                  value={form.crmId}
+                  onChange={(e) => updateField('crmId', e.target.value)}
+                  placeholder="Enter CRM ID"
+                  icon={HiOutlineIdentification}
+                />
+              </motion.div>
               <motion.div variants={fieldVariants} initial="hidden" animate="visible" transition={{ delay: 0.15 }}>
                 <Input
                   label="Mobile Number"
@@ -217,6 +230,15 @@ const StudentForm = ({ initialData = null }) => {
                   onChange={(e) => updateField('result', e.target.value)}
                   placeholder="e.g. 7, 6.5, PTE - 59"
                   icon={HiOutlineClipboardCheck}
+                />
+              </motion.div>
+              <motion.div variants={fieldVariants} initial="hidden" animate="visible" transition={{ delay: 0.4 }}>
+                <Input
+                  label="Current Faculty"
+                  value={form.currentFaculty}
+                  onChange={(e) => updateField('currentFaculty', e.target.value)}
+                  placeholder="Enter current faculty"
+                  icon={HiOutlineUserGroup}
                 />
               </motion.div>
             </div>
