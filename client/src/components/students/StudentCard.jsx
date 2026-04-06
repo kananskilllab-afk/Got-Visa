@@ -1,135 +1,168 @@
 import { motion } from 'framer-motion';
-import { HiOutlineLocationMarker, HiOutlineAcademicCap, HiOutlineArrowRight } from 'react-icons/hi';
-import Badge from '../ui/Badge';
+import { HiOutlineLocationMarker, HiOutlineAcademicCap, HiOutlineArrowRight, HiStar } from 'react-icons/hi';
 
 const StudentCard = ({ student, onClick, index = 0 }) => {
+  const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 }
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.9, y: 30 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.9, y: -20 }}
-      transition={{ delay: index * 0.05, duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-      whileHover={{ y: -12, transition: { duration: 0.35, ease: 'easeOut' } }}
+      transition={{ delay: index * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -15, scale: 1.02 }}
       onClick={onClick}
-      className="group bg-white rounded-3xl shadow-lg shadow-gray-200/50 hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 cursor-pointer overflow-hidden border border-gray-100 hover:border-primary/30"
+      className="group relative bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:shadow-[0_45px_70px_rgba(37,99,235,0.15)] transition-all duration-700 cursor-pointer overflow-hidden border border-gray-100/50 hover:border-primary/20"
     >
+      {/* Success Star Indicator */}
+      <div className="absolute top-6 left-6 z-20">
+        <motion.div
+          initial={{ rotate: -10, scale: 0.8 }}
+          animate={{ rotate: 0, scale: 1 }}
+          whileHover={{ rotate: 180, scale: 1.2 }}
+          transition={{ type: 'spring', stiffness: 300 }}
+          className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg shadow-orange-500/20 text-white border-4 border-white/20 backdrop-blur-xl"
+        >
+          <HiStar className="w-6 h-6" />
+        </motion.div>
+      </div>
+
       {/* Photo Container */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-72 overflow-hidden">
         {student.photo ? (
           <motion.img
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
+            whileHover={{ scale: 1.15 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             src={student.photo}
             alt={student.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 via-sky/10 to-secondary/10">
             <motion.div
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-sky flex items-center justify-center shadow-xl"
+              animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="w-32 h-32 rounded-full bg-gradient-to-br from-primary via-primary-light to-sky flex items-center justify-center shadow-2xl border-8 border-white/30"
             >
-              <span className="text-4xl font-black text-white">
+              <span className="text-5xl font-black text-white drop-shadow-lg">
                 {student.name.charAt(0).toUpperCase()}
               </span>
             </motion.div>
           </div>
         )}
 
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+        {/* Premium Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/10 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-30 transition-opacity duration-500" />
 
-        {/* Shine effect on hover */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent"
-          initial={{ x: '-100%' }}
-          whileHover={{ x: '100%' }}
-          transition={{ duration: 0.6 }}
-        />
-
-        {/* Badges */}
-        <div className="absolute top-4 left-4 right-4 flex flex-col items-start gap-2">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2"
-          >
-            {student.examType && (
-              <Badge variant="blue" className="backdrop-blur-md shadow-lg py-1.5 px-3.5 border border-white/20">
-                {student.examType}
-              </Badge>
-            )}
-            {student.result && (
-              <Badge variant="success" className="backdrop-blur-md shadow-lg py-1.5 px-3.5 border border-white/20">
-                Score: {student.result}
-              </Badge>
-            )}
-          </motion.div>
-          
+        {/* Status Badges Overlay */}
+        <div className="absolute top-6 right-6 flex flex-col items-end gap-3">
           {student.intake && (
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.1 }}
-              className="px-3 py-1 bg-black/40 backdrop-blur-md rounded-lg text-[10px] font-black text-white uppercase tracking-widest border border-white/10"
+              className="px-4 py-1.5 bg-white/10 backdrop-blur-xl rounded-full text-[10px] font-black text-white border border-white/20 shadow-xl"
             >
-              Intake: {student.intake}
+              🚀 {student.intake}
+            </motion.div>
+          )}
+          {student.result && (
+            <motion.div
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="px-4 py-1.5 bg-emerald-500/80 backdrop-blur-xl rounded-full text-[10px] font-black text-white border border-white/20 shadow-xl"
+            >
+              ★ Score: {student.result}
             </motion.div>
           )}
         </div>
 
-        {/* Arrow indicator */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          whileHover={{ opacity: 1, scale: 1 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
-        >
-          <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-2xl shadow-primary/40 border-4 border-white/30 transform group-hover:scale-110 transition-transform">
-            <HiOutlineArrowRight className="w-6 h-6 text-white" />
-          </div>
-        </motion.div>
+        {/* Action Button Label */}
+        <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="space-y-1"
+          >
+            {student.examType && (
+              <p className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">{student.examType} ACHIEVER</p>
+            )}
+            <h4 className="text-white text-2xl font-black tracking-tight leading-tight group-hover:scale-105 transition-transform origin-left">{student.name}</h4>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-2xl shadow-white/20 group-hover:bg-primary transition-all duration-500"
+          >
+            <HiOutlineArrowRight className="w-6 h-6 text-primary group-hover:text-white transition-colors" />
+          </motion.div>
+        </div>
       </div>
 
-      {/* Info Section */}
-      <div className="p-6">
-        <div className="space-y-1 mb-4">
-          <motion.h3
-            className="font-black text-gray-900 text-xl tracking-tight leading-tight truncate group-hover:text-primary transition-colors duration-300"
-          >
-            {student.name}
-          </motion.h3>
+      {/* Details Section with Mesh Gradient */}
+      <div className="relative p-8 bg-gradient-to-br from-white to-gray-50/50">
+        <div className="space-y-4">
           {student.program && (
-            <p className="text-primary font-bold text-xs uppercase tracking-wider line-clamp-1 opacity-90">
-              {student.program}
-            </p>
+            <motion.div 
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              className="flex items-center gap-4 group/item"
+            >
+              <div className="w-10 h-10 rounded-2xl bg-primary/5 flex items-center justify-center flex-shrink-0 group-hover/item:bg-primary/10 transition-colors">
+                <HiOutlineAcademicCap className="w-5 h-5 text-primary" />
+              </div>
+              <div className="flex-1">
+                <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">Enrolled Program</p>
+                <p className="text-sm font-bold text-gray-800 line-clamp-1">{student.program}</p>
+              </div>
+            </motion.div>
           )}
-        </div>
 
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
-              <HiOutlineLocationMarker className="w-4 h-4 text-primary" />
+          <motion.div 
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            transition={{ delay: 0.1 }}
+            className="flex items-center gap-4 group/item"
+          >
+            <div className="w-10 h-10 rounded-2xl bg-secondary/5 flex items-center justify-center flex-shrink-0 group-hover/item:bg-secondary/10 transition-colors">
+              <HiOutlineLocationMarker className="w-5 h-5 text-secondary" />
             </div>
-            <span className="text-sm font-bold text-gray-700">{student.country}</span>
-          </div>
+            <div className="flex-1">
+              <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">Destination</p>
+              <p className="text-sm font-bold text-gray-800">{student.country}</p>
+            </div>
+          </motion.div>
 
           {(student.collegeName || student.currentFaculty) && (
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-secondary/10 to-lime/10 flex items-center justify-center flex-shrink-0">
-                <HiOutlineAcademicCap className="w-4 h-4 text-secondary" />
+            <motion.div 
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              transition={{ delay: 0.2 }}
+              className="flex items-center gap-4 group/item"
+            >
+              <div className="w-10 h-10 rounded-2xl bg-lime/5 flex items-center justify-center flex-shrink-0 group-hover/item:bg-lime/10 transition-colors">
+                <HiOutlineAcademicCap className="w-5 h-5 text-lime" />
               </div>
-              <span className="text-xs font-semibold text-gray-500 line-clamp-1">
-                {student.collegeName || student.currentFaculty}
-              </span>
-            </div>
+              <div className="flex-1">
+                <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">Success Institution</p>
+                <p className="text-sm font-bold text-gray-800 line-clamp-1">{student.collegeName || student.currentFaculty}</p>
+              </div>
+            </motion.div>
           )}
         </div>
 
-        {/* Hover reveal line */}
-        <motion.div
-          className="h-1.5 rounded-full bg-gradient-to-r from-primary via-secondary to-lime mt-5 w-0 group-hover:w-full transition-all duration-700 ease-out"
-        />
+        {/* Decorative background element */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
       </div>
     </motion.div>
   );
