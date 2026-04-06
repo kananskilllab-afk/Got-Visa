@@ -72,16 +72,23 @@ const FloatingShape = ({ className, delay = 0, duration = 3 }) => (
 
 const HomePage = () => {
   const [filters, setFilters] = useState({
-    search: '', country: '', examType: '',
+    search: '', 
+    country: '', 
+    examType: '',
+    intake: '',
+    program: '',
+    email: '',
+    mobile: '',
+    pincode: '',
+    area: '',
   });
+
   const [selectedStudent, setSelectedStudent] = useState(null);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, 150]);
   const heroOpacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const memoizedFilters = useMemo(() => filters, [
-    filters.search, filters.country, filters.examType,
-  ]);
+  const memoizedFilters = useMemo(() => filters, [filters]);
 
   const { students, loading } = useStudents(memoizedFilters);
 

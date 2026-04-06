@@ -11,9 +11,9 @@ const useStudents = (filters = {}) => {
       setLoading(true);
       setError(null);
       const params = {};
-      if (filters.country) params.country = filters.country;
-      if (filters.search) params.search = filters.search;
-      if (filters.examType) params.examType = filters.examType;
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) params[key] = value;
+      });
 
       const { data } = await api.get('/students', { params });
       setStudents(data.students);
@@ -22,7 +22,7 @@ const useStudents = (filters = {}) => {
     } finally {
       setLoading(false);
     }
-  }, [filters.country, filters.search, filters.examType]);
+  }, [JSON.stringify(filters)]);
 
   useEffect(() => {
     const timer = setTimeout(fetchStudents, filters.search ? 300 : 0);

@@ -22,6 +22,34 @@ exports.getStudents = async (req, res, next) => {
       filter.examType = new RegExp(req.query.examType, 'i');
     }
 
+    // New detailed filters
+    if (req.query.intake) {
+      filter.intake = new RegExp(req.query.intake, 'i');
+    }
+
+    if (req.query.program) {
+      filter.program = new RegExp(req.query.program, 'i');
+    }
+
+    if (req.query.email) {
+      filter.email = new RegExp(req.query.email, 'i');
+    }
+
+    if (req.query.mobile) {
+      filter.$or = [
+        { mobileNumber: new RegExp(req.query.mobile, 'i') },
+        { currentMobileNumber: new RegExp(req.query.mobile, 'i') }
+      ];
+    }
+
+    if (req.query.pincode) {
+      filter.pincode = new RegExp(req.query.pincode, 'i');
+    }
+
+    if (req.query.area) {
+      filter.areaLandmark = new RegExp(req.query.area, 'i');
+    }
+
     const students = await Student.find(filter).sort({ createdAt: -1 });
 
     res.json({ success: true, count: students.length, students });
