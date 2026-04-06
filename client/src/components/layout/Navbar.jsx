@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineShieldCheck, HiOutlineMenu, HiX } from 'react-icons/hi';
-import logo from '../../assets/Kanan New Logo.png';
+import logo from '../../assets/kanan-logo.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);

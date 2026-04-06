@@ -3,6 +3,7 @@ import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineChartBar, HiOutlineUsers, HiOutlineLogout, HiOutlineMenu, HiX, HiOutlineHome } from 'react-icons/hi';
 import { useAuth } from '../../context/AuthContext';
+import logo from '../../assets/kanan-logo.png';
 
 const navItems = [
   { to: '/admin', icon: HiOutlineChartBar, label: 'Dashboard', end: true },
@@ -29,7 +30,7 @@ const AdminLayout = () => {
             className="w-10 h-10"
           >
             <img
-              src="/src/assets/Kanan New Logo.png"
+              src={logo}
               alt="Company Logo"
               className="w-full h-full object-contain"
             />
@@ -136,7 +137,7 @@ const AdminLayout = () => {
           <div className="flex items-center gap-2">
             <div className="w-8 h-8">
               <img
-                src="/src/assets/Kanan New Logo.png"
+                src={logo}
                 alt="Company Logo"
                 className="w-full h-full object-contain"
               />

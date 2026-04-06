@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { HiOutlineGlobe } from 'react-icons/hi';
-import logo from '../../assets/Kanan New Logo.png';
+import logo from '../../assets/kanan-logo.png';
 
 const Footer = () => {
   return (

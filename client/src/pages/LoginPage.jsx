@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { HiOutlineMail, HiOutlineLockClosed, HiOutlineShieldCheck } from 'react-icons/hi';
+import logo from '../assets/kanan-logo.png';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 
@@ -88,7 +89,7 @@ const LoginPage = () => {
           >
             <div className="w-16 h-16 mb-4">
               <img
-                src="/src/assets/Kanan New Logo.png"
+                src={logo}
                 alt="Company Logo"
                 className="w-full h-full object-contain"
               />
