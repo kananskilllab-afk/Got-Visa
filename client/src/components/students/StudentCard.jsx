@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { HiOutlineLocationMarker, HiOutlineAcademicCap, HiOutlineArrowRight, HiStar } from 'react-icons/hi';
+import { HiOutlineLocationMarker, HiOutlineAcademicCap, HiOutlineArrowRight, HiOutlineCalendar } from 'react-icons/hi';
 
 const StudentCard = ({ student, onClick, index = 0 }) => {
   const itemVariants = {
@@ -17,19 +17,6 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
       onClick={onClick}
       className="group relative bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:shadow-[0_45px_70px_rgba(37,99,235,0.15)] transition-all duration-700 cursor-pointer overflow-hidden border border-gray-100/50 hover:border-primary/20"
     >
-      {/* Success Star Indicator */}
-      <div className="absolute top-6 left-6 z-20">
-        <motion.div
-          initial={{ rotate: -10, scale: 0.8 }}
-          animate={{ rotate: 0, scale: 1 }}
-          whileHover={{ rotate: 180, scale: 1.2 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-          className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg shadow-orange-500/20 text-white border-4 border-white/20 backdrop-blur-xl"
-        >
-          <HiStar className="w-6 h-6" />
-        </motion.div>
-      </div>
-
       {/* Photo Container */}
       <div className="relative h-72 overflow-hidden">
         {student.photo ? (
@@ -60,22 +47,11 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
 
         {/* Status Badges Overlay */}
         <div className="absolute top-6 right-6 flex flex-col items-end gap-3">
-          {student.intake && (
-            <motion.div
-              initial={{ x: 20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              className="px-4 py-1.5 bg-white/10 backdrop-blur-xl rounded-full text-[10px] font-black text-white border border-white/20 shadow-xl"
-            >
-              🚀 {student.intake}
-            </motion.div>
-          )}
           {student.result && (
             <motion.div
               initial={{ x: 20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="px-4 py-1.5 bg-emerald-500/80 backdrop-blur-xl rounded-full text-[10px] font-black text-white border border-white/20 shadow-xl"
+              className="px-4 py-2 bg-emerald-500 backdrop-blur-xl rounded-xl text-[11px] font-black text-white border border-white/20 shadow-xl"
             >
               ★ Score: {student.result}
             </motion.div>
@@ -92,7 +68,7 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
             {student.examType && (
               <p className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">{student.examType} ACHIEVER</p>
             )}
-            <h4 className="text-white text-2xl font-black tracking-tight leading-tight group-hover:scale-105 transition-transform origin-left">{student.name}</h4>
+            <h4 className="text-white text-3xl font-black tracking-tight leading-tight group-hover:scale-105 transition-transform origin-left">{student.name}</h4>
           </motion.div>
           
           <motion.div
@@ -105,14 +81,33 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
         </div>
       </div>
 
-      {/* Details Section with Mesh Gradient */}
+      {/* Details Section */}
       <div className="relative p-8 bg-gradient-to-br from-white to-gray-50/50">
         <div className="space-y-4">
+          {/* INTAKE - NOW PROMINENT */}
+          {student.intake && (
+            <motion.div 
+              variants={itemVariants}
+              initial="hidden"
+              whileInView="visible"
+              className="flex items-center gap-4 group/item pb-2 border-b border-gray-100"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-orange-500/20">
+                <HiOutlineCalendar className="w-6 h-6 text-white" />
+              </div>
+              <div className="flex-1">
+                <p className="text-[10px] text-orange-500 font-black uppercase tracking-widest leading-none mb-1">Target Intake</p>
+                <p className="text-lg font-black text-gray-900 tracking-tight">{student.intake}</p>
+              </div>
+            </motion.div>
+          )}
+
           {student.program && (
             <motion.div 
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
+              transition={{ delay: 0.1 }}
               className="flex items-center gap-4 group/item"
             >
               <div className="w-10 h-10 rounded-2xl bg-primary/5 flex items-center justify-center flex-shrink-0 group-hover/item:bg-primary/10 transition-colors">
@@ -129,7 +124,7 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.2 }}
             className="flex items-center gap-4 group/item"
           >
             <div className="w-10 h-10 rounded-2xl bg-secondary/5 flex items-center justify-center flex-shrink-0 group-hover/item:bg-secondary/10 transition-colors">
@@ -146,14 +141,14 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
               variants={itemVariants}
               initial="hidden"
               whileInView="visible"
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.3 }}
               className="flex items-center gap-4 group/item"
             >
               <div className="w-10 h-10 rounded-2xl bg-lime/5 flex items-center justify-center flex-shrink-0 group-hover/item:bg-lime/10 transition-colors">
                 <HiOutlineAcademicCap className="w-5 h-5 text-lime" />
               </div>
               <div className="flex-1">
-                <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">Success Institution</p>
+                <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mb-1">Institution</p>
                 <p className="text-sm font-bold text-gray-800 line-clamp-1">{student.collegeName || student.currentFaculty}</p>
               </div>
             </motion.div>
