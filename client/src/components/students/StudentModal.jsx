@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Modal from '../ui/Modal';
 import Badge from '../ui/Badge';
-import { HiOutlineAcademicCap, HiOutlineLocationMarker, HiOutlineMail, HiOutlinePhone, HiOutlineClipboardCheck, HiOutlineUser } from 'react-icons/hi';
+import { HiOutlineAcademicCap, HiOutlineLocationMarker, HiOutlineMail, HiOutlinePhone, HiOutlineClipboardCheck, HiOutlineUser, HiOutlineHome } from 'react-icons/hi';
 
 const InfoRow = ({ icon: Icon, label, value, color, delay }) => (
   <motion.div
