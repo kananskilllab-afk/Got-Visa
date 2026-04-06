@@ -3,16 +3,20 @@ const mongoose = require('mongoose');
 const connectDB = async () => {
   try {
     const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
+    
     if (!uri) {
-      throw new Error('MongoDB URI not found in environment variables');
+      console.error('CRITICAL: MongoDB URI not found in environment variables (MONGODB_URI or MONGO_URI).');
+      return;
     }
+
+    console.log('Attempting to connect to MongoDB...');
     const conn = await mongoose.connect(uri);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`MongoDB connection error: ${error.message}`);
-    // Only exit in non-serverless environments
-    if (!process.env.VERCEL) {
-      process.exit(1);
+    console.error(`ERROR: MongoDB connection failed: ${error.message}`);
+    // Detailed error logging for common issues
+    if (error.message.includes('ECONNREFUSED')) {
+      console.error('Detailed Error: Connection refused. Check if the database is running or the firewall is blocking access.');
     }
   }
 };
