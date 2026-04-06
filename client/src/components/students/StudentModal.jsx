@@ -112,56 +112,136 @@ const StudentModal = ({ student, isOpen, onClose }) => {
             </div>
           </motion.div>
 
-          {/* Info rows */}
+          {/* Info rows organized by section */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="space-y-4"
+            className="space-y-6"
           >
-            <InfoRow
-              icon={HiOutlineLocationMarker}
-              label="Destination Country"
-              value={student.country}
-              color="bg-gradient-to-br from-primary to-primary-light"
-              delay={0.45}
-            />
-            {student.mobileNumber && (
-              <InfoRow
-                icon={HiOutlinePhone}
-                label="Mobile Number"
-                value={student.mobileNumber}
-                color="bg-gradient-to-br from-orange to-gold"
-                delay={0.5}
-              />
-            )}
-            {student.email && (
-              <InfoRow
-                icon={HiOutlineMail}
-                label="Email"
-                value={student.email}
-                color="bg-gradient-to-br from-violet to-accent"
-                delay={0.55}
-              />
-            )}
-            {student.examType && (
-              <InfoRow
-                icon={HiOutlineAcademicCap}
-                label="Exam Type"
-                value={student.examType}
-                color="bg-gradient-to-br from-sky to-primary"
-                delay={0.6}
-              />
-            )}
-            {student.result && (
-              <InfoRow
-                icon={HiOutlineClipboardCheck}
-                label="Result / Score"
-                value={String(student.result)}
-                color="bg-gradient-to-br from-secondary to-lime"
-                delay={0.65}
-              />
-            )}
+            {/* Academic Section */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-black text-primary uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <span className="w-6 h-px bg-primary/30"></span> Admission Details
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {student.collegeName && (
+                  <InfoRow
+                    icon={HiOutlineAcademicCap}
+                    label="College Name"
+                    value={student.collegeName}
+                    color="bg-gradient-to-br from-secondary to-lime"
+                    delay={0.45}
+                  />
+                )}
+                {student.program && (
+                  <InfoRow
+                    icon={HiOutlineAcademicCap}
+                    label="Program / Course"
+                    value={student.program}
+                    color="bg-gradient-to-br from-primary to-sky"
+                    delay={0.5}
+                  />
+                )}
+                {student.intake && (
+                  <InfoRow
+                    icon={HiOutlineClipboardCheck}
+                    label="Intake"
+                    value={student.intake}
+                    color="bg-gradient-to-br from-orange to-gold"
+                    delay={0.55}
+                  />
+                )}
+                {student.examType && (
+                  <InfoRow
+                    icon={HiOutlineAcademicCap}
+                    label="Exam Type"
+                    value={`${student.examType} (${student.result || 'N/A'})`}
+                    color="bg-gradient-to-br from-violet to-accent"
+                    delay={0.6}
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Contact Section */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-black text-secondary uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <span className="w-6 h-px bg-secondary/30"></span> Contact Details
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {student.mobileNumber && (
+                  <InfoRow
+                    icon={HiOutlinePhone}
+                    label="Primary Mobile"
+                    value={student.mobileNumber}
+                    color="bg-gradient-to-br from-gray-700 to-gray-900"
+                    delay={0.65}
+                  />
+                )}
+                {student.currentMobileNumber && (
+                  <InfoRow
+                    icon={HiOutlinePhone}
+                    label="Current Mobile"
+                    value={student.currentMobileNumber}
+                    color="bg-gradient-to-br from-gray-700 to-gray-900"
+                    delay={0.68}
+                  />
+                )}
+                {student.email && (
+                  <InfoRow
+                    icon={HiOutlineMail}
+                    label="Email Address"
+                    value={student.email}
+                    color="bg-gradient-to-br from-orange to-red"
+                    delay={0.7}
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Address Section */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-black text-lime uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                <span className="w-6 h-px bg-lime/30"></span> Location & Address
+              </h4>
+              <div className="grid grid-cols-1 gap-4">
+                <InfoRow
+                  icon={HiOutlineLocationMarker}
+                  label="Destination Country"
+                  value={student.country}
+                  color="bg-gradient-to-br from-sky to-primary"
+                  delay={0.75}
+                />
+                {student.address && (
+                  <InfoRow
+                    icon={HiOutlineHome}
+                    label="Permanent Address"
+                    value={student.address}
+                    color="bg-gradient-to-br from-lime to-secondary"
+                    delay={0.8}
+                  />
+                )}
+                {student.currentAddress && (
+                  <InfoRow
+                    icon={HiOutlineHome}
+                    label="Current Address"
+                    value={student.currentAddress}
+                    color="bg-gradient-to-br from-lime to-secondary"
+                    delay={0.83}
+                  />
+                )}
+                {(student.areaLandmark || student.pincode) && (
+                  <InfoRow
+                    icon={HiOutlineLocationMarker}
+                    label="Area / Landmark / Pincode"
+                    value={`${student.areaLandmark}${student.areaLandmark && student.pincode ? ', ' : ''}${student.pincode}`}
+                    color="bg-gradient-to-br from-gray-400 to-gray-600"
+                    delay={0.86}
+                  />
+                )}
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

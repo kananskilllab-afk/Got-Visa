@@ -49,16 +49,33 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
         />
 
         {/* Badges */}
-        <div className="absolute top-4 left-4 right-4 flex justify-between items-start gap-2">
-          {student.examType && (
-            <Badge variant="blue" className="backdrop-blur-md shadow-lg">
-              {student.examType}
-            </Badge>
-          )}
-          {student.result && (
-            <Badge variant="success" className="backdrop-blur-md shadow-lg ml-auto">
-              Score: {student.result}
-            </Badge>
+        <div className="absolute top-4 left-4 right-4 flex flex-col items-start gap-2">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-2"
+          >
+            {student.examType && (
+              <Badge variant="blue" className="backdrop-blur-md shadow-lg py-1.5 px-3.5 border border-white/20">
+                {student.examType}
+              </Badge>
+            )}
+            {student.result && (
+              <Badge variant="success" className="backdrop-blur-md shadow-lg py-1.5 px-3.5 border border-white/20">
+                Score: {student.result}
+              </Badge>
+            )}
+          </motion.div>
+          
+          {student.intake && (
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              className="px-3 py-1 bg-black/40 backdrop-blur-md rounded-lg text-[10px] font-black text-white uppercase tracking-widest border border-white/10"
+            >
+              Intake: {student.intake}
+            </motion.div>
           )}
         </div>
 
@@ -66,36 +83,52 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
         <motion.div
           initial={{ opacity: 0, scale: 0 }}
           whileHover={{ opacity: 1, scale: 1 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
         >
-          <div className="w-14 h-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <HiOutlineArrowRight className="w-6 h-6 text-primary" />
+          <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-2xl shadow-primary/40 border-4 border-white/30 transform group-hover:scale-110 transition-transform">
+            <HiOutlineArrowRight className="w-6 h-6 text-white" />
           </div>
         </motion.div>
       </div>
 
       {/* Info Section */}
-      <div className="p-5">
-        <motion.h3
-          className="font-bold text-gray-800 text-lg mb-3 truncate group-hover:text-primary transition-colors duration-300"
-          whileHover={{ x: 5 }}
-        >
-          {student.name}
-        </motion.h3>
-
-        <div className="flex items-center gap-2.5 text-sm text-gray-500">
-          <motion.div
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            className="w-7 h-7 rounded-full bg-gradient-to-br from-primary/20 to-sky/20 flex items-center justify-center flex-shrink-0"
+      <div className="p-6">
+        <div className="space-y-1 mb-4">
+          <motion.h3
+            className="font-black text-gray-900 text-xl tracking-tight leading-tight truncate group-hover:text-primary transition-colors duration-300"
           >
-            <HiOutlineLocationMarker className="w-4 h-4 text-primary" />
-          </motion.div>
-          <span className="font-semibold">{student.country}</span>
+            {student.name}
+          </motion.h3>
+          {student.program && (
+            <p className="text-primary font-bold text-xs uppercase tracking-wider line-clamp-1 opacity-90">
+              {student.program}
+            </p>
+          )}
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary/10 to-sky/10 flex items-center justify-center flex-shrink-0">
+              <HiOutlineLocationMarker className="w-4 h-4 text-primary" />
+            </div>
+            <span className="text-sm font-bold text-gray-700">{student.country}</span>
+          </div>
+
+          {(student.collegeName || student.currentFaculty) && (
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-secondary/10 to-lime/10 flex items-center justify-center flex-shrink-0">
+                <HiOutlineAcademicCap className="w-4 h-4 text-secondary" />
+              </div>
+              <span className="text-xs font-semibold text-gray-500 line-clamp-1">
+                {student.collegeName || student.currentFaculty}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Hover reveal line */}
         <motion.div
-          className="h-1.5 rounded-full bg-gradient-to-r from-primary via-secondary to-lime mt-4 w-0 group-hover:w-full transition-all duration-700 ease-out"
+          className="h-1.5 rounded-full bg-gradient-to-r from-primary via-secondary to-lime mt-5 w-0 group-hover:w-full transition-all duration-700 ease-out"
         />
       </div>
     </motion.div>
