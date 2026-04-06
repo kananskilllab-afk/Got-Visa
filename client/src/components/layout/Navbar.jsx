@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineShieldCheck, HiOutlineMenu, HiX } from 'react-icons/hi';
+import logo from '../../assets/Kanan New Logo.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -37,10 +38,10 @@ const Navbar = () => {
                 transition={{ duration: 0.5 }}
                 className="relative"
               >
-                <div className="w-56 h-56">
+                <div className="w-48 h-16">
                   <img
-                    src="/src/assets/Kanan New Logo.png"
-                    alt="Company Logo"
+                    src={logo}
+                    alt="Kanan.co Logo"
                     className="w-full h-full object-contain"
                   />
                 </div>
