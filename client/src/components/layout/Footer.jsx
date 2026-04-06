@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { HiOutlineGlobe } from 'react-icons/hi';
+import logo from '../../assets/Kanan New Logo.png';
 
 const Footer = () => {
   return (
@@ -22,11 +23,11 @@ const Footer = () => {
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
-              className="w-56 h-56"
+              className="w-48 h-16"
             >
               <img
-                src="/src/assets/Kanan New Logo.png"
-                alt="Company Logo"
+                src={logo}
+                alt="Kanan.co Logo"
                 className="w-full h-full object-contain"
               />
             </motion.div>
