@@ -49,6 +49,46 @@ const studentSchema = new mongoose.Schema({
     trim: true,
     default: '',
   },
+  intake: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  collegeName: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  address: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  currentAddress: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  areaLandmark: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  pincode: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  currentMobileNumber: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  program: {
+    type: String,
+    trim: true,
+    default: '',
+  },
 }, { timestamps: true });
 
 studentSchema.index({ country: 1 });
