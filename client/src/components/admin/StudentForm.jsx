@@ -68,7 +68,7 @@ const StudentForm = ({ initialData = null }) => {
 
   const handleRemoveImage = () => {
     setFile(null);
-    setPreview(isEdit && initialData?.photo ? initialData.photo : '');
+    setPreview('');
   };
 
   const validate = () => {

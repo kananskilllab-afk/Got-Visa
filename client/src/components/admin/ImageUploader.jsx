@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { HiOutlinePhotograph, HiX, HiOutlineCloudUpload } from 'react-icons/hi';
+import { HiX, HiOutlineCloudUpload } from 'react-icons/hi';
 
 const ImageUploader = ({ preview, onFileSelect, onRemove }) => {
   const onDrop = useCallback((acceptedFiles) => {
@@ -18,12 +18,13 @@ const ImageUploader = ({ preview, onFileSelect, onRemove }) => {
   });
 
   return (
-    <div>
+    <div {...getRootProps()} className="cursor-pointer group">
+      <input {...getInputProps()} />
       {preview ? (
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="relative w-44 h-44 rounded-3xl overflow-hidden group shadow-xl shadow-gray-200/50 ring-4 ring-primary/10"
+          className="relative w-44 h-44 rounded-3xl overflow-hidden shadow-xl shadow-gray-200/50 ring-4 ring-primary/10"
         >
           <motion.img
             whileHover={{ scale: 1.05 }}
@@ -32,24 +33,34 @@ const ImageUploader = ({ preview, onFileSelect, onRemove }) => {
             alt="Preview"
             className="w-full h-full object-cover"
           />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          {/* Remove button */}
+          
+          {/* Change Overlay on Hover */}
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2">
+            <HiOutlineCloudUpload className="w-8 h-8 text-white animate-bounce" />
+            <span className="text-white text-[10px] font-black uppercase tracking-widest text-center px-4">Click to Change Photo</span>
+          </div>
+
+          {/* Remove button (stop propagation to not trigger upload) */}
           <motion.button
             initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
             type="button"
-            onClick={onRemove}
-            className="absolute top-3 right-3 p-2.5 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer border-none shadow-lg"
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemove();
+            }}
+            className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full z-20 shadow-lg border-none cursor-pointer"
           >
-            <HiX className="w-4 h-4" />
+            <HiX className="w-3.5 h-3.5" />
           </motion.button>
-          {/* Success indicator */}
-          <div className="absolute bottom-3 left-3 right-3">
-            <div className="flex items-center justify-center gap-2 px-3 py-2 bg-white/90 backdrop-blur-sm rounded-xl">
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-secondary to-lime" />
-              <span className="text-xs font-bold text-gray-700">Image uploaded</span>
+
+          {/* Status Label */}
+          <div className="absolute bottom-2 left-2 right-2 z-10">
+            <div className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-xl">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-[10px] font-black text-gray-700 uppercase tracking-tighter">Ready to Save</span>
             </div>
           </div>
         </motion.div>
@@ -57,54 +68,21 @@ const ImageUploader = ({ preview, onFileSelect, onRemove }) => {
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          {...getRootProps()}
-          className={`relative border-2 border-dashed rounded-3xl p-10 text-center cursor-pointer transition-all duration-300 overflow-hidden
+          className={`relative border-2 border-dashed rounded-3xl p-10 text-center transition-all duration-300 overflow-hidden min-h-[176px] flex flex-col items-center justify-center
             ${isDragActive
-              ? 'border-primary bg-gradient-to-br from-primary/10 via-sky/5 to-secondary/10 scale-102'
-              : 'border-gray-300 hover:border-primary/70 hover:bg-gradient-to-br hover:from-gray-50 hover:to-primary/5'
+              ? 'border-primary bg-primary/5 scale-102'
+              : 'border-gray-200 hover:border-primary/50 hover:bg-gray-50'
             }`}
         >
-          <input {...getInputProps()} />
-
           {/* Animated background icon */}
-          <motion.div
-            animate={{
-              y: isDragActive ? [0, -10, 0] : [0, -5, 0],
-              scale: isDragActive ? 1.1 : 1,
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="mb-4"
-          >
-            <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-primary/20 via-sky/20 to-secondary/20 flex items-center justify-center">
-              <HiOutlineCloudUpload className="w-10 h-10 text-primary" />
-            </div>
-          </motion.div>
+          <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center mb-3 group-hover:bg-primary/10 transition-colors">
+            <HiOutlineCloudUpload className="w-6 h-6 text-gray-400 group-hover:text-primary transition-colors" />
+          </div>
 
-          {/* Text content */}
-          <motion.p
-            animate={{
-              color: isDragActive ? '#284695' : '#6b7280',
-            }}
-            className="text-sm font-bold mb-2"
-          >
-            {isDragActive ? 'Drop the image here...' : 'Drag & drop or click to upload'}
-          </motion.p>
-
-          <p className="text-xs text-gray-400 font-medium">
-            JPG, PNG or WebP (max 5MB)
+          <p className="text-xs font-bold text-gray-600 mb-1">
+            {isDragActive ? 'Drop here!' : 'Click to Upload'}
           </p>
-
-          {/* Shine effect */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-            initial={{ x: '-100%' }}
-            animate={{ x: '100%' }}
-            transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-          />
+          <p className="text-[10px] text-gray-400 uppercase tracking-tight">JPG/PNG up to 5MB</p>
         </motion.div>
       )}
     </div>
