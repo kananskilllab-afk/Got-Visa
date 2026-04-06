@@ -61,22 +61,7 @@ const StudentModal = ({ student, isOpen, onClose }) => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           </div>
 
-          {/* Quick info cards */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="grid grid-cols-2 gap-3 mt-4"
-          >
-            <div className="p-3 bg-gradient-to-br from-primary/10 to-sky/10 rounded-2xl border border-primary/20 text-center">
-              <p className="text-xs text-gray-500 font-bold uppercase">Exam</p>
-              <p className="text-sm font-black text-primary mt-1">{student.examType || 'N/A'}</p>
-            </div>
-            <div className="p-3 bg-gradient-to-br from-secondary/10 to-lime/10 rounded-2xl border border-secondary/20 text-center">
-              <p className="text-xs text-gray-500 font-bold uppercase">Score</p>
-              <p className="text-sm font-black text-secondary mt-1">{student.result || 'N/A'}</p>
-            </div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Details Section */}
@@ -153,12 +138,12 @@ const StudentModal = ({ student, isOpen, onClose }) => {
                       delay={0.55}
                     />
                   )}
-                  {student.examType && (
+                  {student.country && (
                     <InfoRow
-                      icon={HiOutlineAcademicCap}
-                      label="Exam Type"
-                      value={`${student.examType} (${student.result || 'N/A'})`}
-                      color="bg-gradient-to-br from-violet to-accent"
+                      icon={HiOutlineLocationMarker}
+                      label="Destination"
+                      value={student.country}
+                      color="bg-gradient-to-br from-sky to-primary"
                       delay={0.6}
                     />
                   )}
@@ -212,20 +197,13 @@ const StudentModal = ({ student, isOpen, onClose }) => {
                 <span className="w-8 h-1 bg-lime/20 rounded-full"></span> Location & Address
               </h4>
               <div className="grid grid-cols-1 gap-5">
-                <InfoRow
-                  icon={HiOutlineLocationMarker}
-                  label="Destination Country"
-                  value={student.country}
-                  color="bg-gradient-to-br from-sky to-primary"
-                  delay={0.75}
-                />
                 {student.address && (
                   <InfoRow
                     icon={HiOutlineHome}
                     label="Permanent Address"
                     value={student.address}
                     color="bg-gradient-to-br from-lime to-secondary"
-                    delay={0.8}
+                    delay={0.75}
                   />
                 )}
                 {student.currentAddress && (
@@ -234,7 +212,7 @@ const StudentModal = ({ student, isOpen, onClose }) => {
                     label="Current Address"
                     value={student.currentAddress}
                     color="bg-gradient-to-br from-lime to-secondary"
-                    delay={0.83}
+                    delay={0.8}
                   />
                 )}
                 {(student.areaLandmark || student.pincode) && (
@@ -243,7 +221,7 @@ const StudentModal = ({ student, isOpen, onClose }) => {
                     label="Area / Landmark / Pincode"
                     value={`${student.areaLandmark || ''}${student.areaLandmark && student.pincode ? ', ' : ''}${student.pincode || ''}`}
                     color="bg-gradient-to-br from-gray-400 to-gray-600"
-                    delay={0.86}
+                    delay={0.85}
                   />
                 )}
               </div>
