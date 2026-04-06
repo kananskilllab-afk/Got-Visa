@@ -60,8 +60,6 @@ const StudentModal = ({ student, isOpen, onClose }) => {
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           </div>
-
-          </div>
         </motion.div>
 
         {/* Details Section */}
@@ -151,7 +149,7 @@ const StudentModal = ({ student, isOpen, onClose }) => {
               </div>
             </div>
 
-            {/* Contact Section - Spaced out for long emails */}
+            {/* Contact Section */}
             <div className="space-y-4">
               <h4 className="text-[11px] font-black text-secondary uppercase tracking-[0.25em] mb-5 flex items-center gap-3">
                 <span className="w-8 h-1 bg-secondary/20 rounded-full"></span> Contact Details
