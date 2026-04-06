@@ -96,7 +96,7 @@ const StudentCard = ({ student, onClick, index = 0 }) => {
                 <HiOutlineCalendar className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
-                <p className="text-[10px] text-orange-500 font-black uppercase tracking-widest leading-none mb-1">Target Intake</p>
+                <p className="text-[10px] text-orange-500 font-black uppercase tracking-widest leading-none mb-1">Intake</p>
                 <p className="text-lg font-black text-gray-900 tracking-tight">{student.intake}</p>
               </div>
             </motion.div>
