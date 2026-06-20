@@ -1,4 +1,5 @@
 require('dotenv').config({ path: require('path').join(__dirname, '../.env') });
+require('dns').setServers(['8.8.8.8', '8.8.4.4']);
 const connectDB = require('../config/db');
 const Student = require('../models/Student');
 const cloudinary = require('../config/cloudinary');
