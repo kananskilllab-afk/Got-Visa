@@ -50,7 +50,7 @@ exports.getStudents = async (req, res, next) => {
       filter.areaLandmark = new RegExp(req.query.area, 'i');
     }
 
-    const students = await Student.find(filter).sort({ createdAt: -1 });
+    const students = await Student.find(filter).select('-photo').sort({ createdAt: -1 });
 
     res.json({ success: true, count: students.length, students });
   } catch (error) {

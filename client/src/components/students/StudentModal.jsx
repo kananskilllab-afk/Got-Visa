@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Modal from '../ui/Modal';
 import Badge from '../ui/Badge';
 import { HiOutlineAcademicCap, HiOutlineLocationMarker, HiOutlineMail, HiOutlinePhone, HiOutlineClipboardCheck, HiOutlineUser, HiOutlineHome } from 'react-icons/hi';
+import api from '../../api/axios';
 
 const InfoRow = ({ icon: Icon, label, value, color, delay }) => (
   <motion.div
@@ -24,7 +26,18 @@ const InfoRow = ({ icon: Icon, label, value, color, delay }) => (
 );
 
 const StudentModal = ({ student, isOpen, onClose }) => {
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() => {
+    if (!student || !isOpen) { setPhoto(null); return; }
+    api.get(`/students/${student._id}`)
+      .then(({ data }) => setPhoto(data.student.photo || null))
+      .catch(() => {});
+  }, [student?._id, isOpen]);
+
   if (!student) return null;
+
+  const displayPhoto = photo ?? student.photo ?? null;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Student Profile" maxWidth="max-w-4xl">
@@ -37,12 +50,12 @@ const StudentModal = ({ student, isOpen, onClose }) => {
           className="w-full lg:w-2/5 flex-shrink-0"
         >
           <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 shadow-2xl shadow-primary/20 ring-4 ring-primary/10">
-            {student.photo ? (
+            {displayPhoto ? (
               <motion.img
                 initial={{ scale: 1.2 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
-                src={student.photo}
+                src={displayPhoto}
                 alt={student.name}
                 className="w-full h-full object-cover"
               />
